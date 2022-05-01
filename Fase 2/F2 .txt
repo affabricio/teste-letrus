@@ -1,0 +1,32 @@
+Dado que você possui uma massa de dados populada e pré analisada, crie insight a partir
+dos datasets tratados. Os objetivos das dashboards são:
+
+1 - Ajudar o professor criar melhores conteúdos de aula 
+
+
+2 - Dar visibilidade sobre o engajamento dos alunos nas atividade por projeto, cidade
+Arquivo Letrus.pbix
+
+3 - Encontrar, rastrear e sanar padrões e anomalias na estrutura dos dados
+=> sanar erros/ correções
+* Valor das medias nao estão batendo de acordo com a notas
+* Valor das notas estão como inteiras, poderiam ser decimais
+
+=> fora de padrao
+* Alguns nome dos campos fora de padrão
+* Muitas descrições de projeto em branco
+* Acredito que as atividades deveria ter nomes padronizados. Da maneira que se ecnontra, aparenta que todo aluno faz 1 atividade diferente por projeto
+
+=> anomalia
+* Muitos id_projeto da tabela atividades estao com valor 0
+* campo de id_usuario na tabela de projeto inadequado e/ou valores incorretos
+* Muitas atividades sem notas
+* Muitas atividades sem notas por id_usuario (mesmoa pessoa fazendo a mesma atividade varias vezes)
+* Muitas atividades sendo refeitas pelo mesmo usuario para o mesmo projeto
+* varias atividades com data de inicio/ fim fora da data de inicio/fim do projeto 
+* o mesmo projeto em varios estados
+
+4 - Identificar quais atividades tiveram os melhores índices no aspetos nota x engajamento
+Arquivo Letrus.pbix
+
+

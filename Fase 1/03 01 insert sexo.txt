@@ -1,0 +1,3 @@
+--sexo
+insert into sexo(id, descricao) values (0, 'Feminino')
+insert into sexo(id, descricao) values (1, 'Masculino')

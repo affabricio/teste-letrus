@@ -1,0 +1,83 @@
+--sexo
+create table Sexo
+(
+id int not null,
+descricao varchar(20),
+primary key (id)
+)
+
+--ativo
+create table Ativo
+(
+id int not null,
+descricao varchar(15),
+primary key (id)
+)
+
+--usuarios
+create table Usuarios
+(
+id int not null,
+nome varchar(50),
+login varchar(25),
+id_ativo int,
+id_sexo int,
+primary key (id),
+CONSTRAINT id_usuario_ativo FOREIGN KEY (id_ativo) REFERENCES Ativo (ID)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
+CONSTRAINT id_usuario_sexo FOREIGN KEY (id_sexo) REFERENCES Sexo (ID)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
+)
+
+--projetos
+create table Projetos
+(
+id int not null,
+nome varchar(200),
+data_inicio date,
+data_fim date,
+id_usuario int,
+primary key (id),
+--CONSTRAINT id_projeto_usuario FOREIGN KEY (id_usuario) REFERENCES Usuarios (ID)
+--	ON DELETE CASCADE
+--	ON UPDATE CASCADE
+)
+
+--atividades
+create table Atividades
+(
+id int not null,
+nome varchar(50),
+data_inicio date,
+data_fim date,
+id_projeto int,
+id_usuario int,
+primary key (id),
+CONSTRAINT id_atividade_usuario FOREIGN KEY (id_usuario) REFERENCES Usuarios (ID)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
+CONSTRAINT id_atividade_projeto FOREIGN KEY (id_projeto) REFERENCES Projetos (ID)
+	--ON DELETE CASCADE
+	--ON UPDATE CASCADE
+)
+
+--notas
+create table nota
+(
+id int not null,
+id_atividade int,
+nota1 decimal(4,2),
+nota2 decimal(4,2),
+nota3 decimal(4,2),
+nota4 decimal(4,2),
+nota_Final decimal(4,2),
+primary key (id),
+CONSTRAINT id_nota_atividade FOREIGN KEY (id_atividade) REFERENCES Atividades (ID)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
+)
+
+
+

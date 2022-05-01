@@ -1,0 +1,81 @@
+--1. Quais são todos os projetos com suas atividades;
+select Projetos.nome as 'Projeto', Atividades.nome as 'Atividade'
+from Projetos inner join Atividades on Projetos.id = Atividades.id_projeto
+group by Projetos.nome, Atividades.nome
+order by Projeto, Atividade
+
+--2. Todas as atividades do usuário “oescolhido@letrus.com” no ano de 2022
+select Usuarios.nome as 'Nome usuario', Usuarios.id_ativo as 'Ativo', Usuarios.id_sexo as 'Sexo', Atividades.nome as 'Nome Atividade', Atividades.data_inicio as 'Dt Inicio', Atividades.data_fim as 'Dt fim'
+from Usuarios inner join atividades on Usuarios.id = Atividades.id_usuario
+where Usuarios.nome = 'maria 203' and
+	year(Atividades.data_inicio) = 2022
+order by Usuarios.nome, Usuarios.id_ativo, Usuarios.id_sexo, Atividades.nome, Atividades.data_inicio, Atividades.data_fim
+
+--3. Quantidade de atividades por projeto do ano 2021
+select Projetos.id, Projetos.nome as 'Nome Projeto', count(Atividades.id) as 'qtde_atividade'
+from Projetos inner join Atividades on Projetos.id = Atividades.id_projeto
+where year(Atividades.data_inicio) = 2021
+group by Projetos.id, Projetos.nome
+order by projetos.nome
+
+--4. Lista de atividades em ordem hierárquica do projeto "LetrusTIC”
+select Projetos.nome as 'Projeto', Atividades.nome as 'Atividade', Atividades.data_inicio as 'Dt Inicio'
+from Projetos inner join Atividades on Projetos.id = Atividades.id_projeto
+where projetos.nome = 'Carlos Jereissati Senador EEF'
+group by Projetos.nome, Atividades.data_inicio, Atividades.nome
+order by Projetos.nome, Atividades.data_inicio, Atividades.nome
+
+--5. Exclua o projeto “LetrusTIC”
+delete from Projetos
+where Projetos.nome = 'LetrusTIC'
+
+--6. Liste todos as pessoas que estão no projeto “Concurso de Redacao”
+select Projetos.id, Projetos.nome, Usuarios.nome
+from Usuarios 
+	inner join Atividades on Usuarios.id = Atividades.id_usuario
+	inner join projetos on atividades.id_projeto = projetos.id
+where Projetos.nome = 'Concurso de redacao'
+
+--7. Aumente o prazo final em 15 dias de todas as atividades do projeto “Concurso de Redacao”
+UPDATE Atividades
+SET Atividades.data_fim = DATEADD(day, 15, atividades.data_fim)
+FROM Atividades	INNER JOIN Projetos ON Atividades.id_projeto = Projetos.id
+where Projetos.nome = 'Concurso de redacao'
+	
+
+--8. Exclua todos as atividades do usuário “João 33”
+DELETE Atividades
+FROM Usuarios INNER JOIN Atividades ON usuarios.id = atividades.id_usuario
+WHERE usuarios.nome = 'João 33';
+
+
+--9. Crei a tabela "endereco” e relacione com o a tabela usuário. 
+     --Endereco (estado, cidade, bairro, rua, cep, numero)
+create table endereco
+(
+id int not null,
+estado varchar(2),
+cidade varchar(30),
+bairro varchar(30),
+rua varchar(100),
+cep int,
+numero int,
+id_usuario int,
+primary key (id)
+)
+
+
+--10. Popule a tabela “endereco”
+--Esta no arquivo "1410 insert de endereco"
+
+--11. Crie uma view que mostre todos os usuários que estão na cidade São Paulo e a nota final esteja entre 7 e 10 pontos
+select *
+from 
+	Usuarios 
+	inner join endereco on Usuarios.id = endereco.id_usuario
+	inner join atividades on Usuarios.id = Atividades.id_usuario
+	inner join nota on atividades.id = nota.id_atividade
+where 
+	endereco.estado = 'SP' and
+	nota.nota_Final between 7 and 10
+order by Usuarios.nome, endereco.estado, endereco.cidade

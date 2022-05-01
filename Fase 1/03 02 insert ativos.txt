@@ -1,0 +1,3 @@
+--ativo
+insert into ativo(id, descricao) values (0, 'Inativo')
+insert into ativo(id, descricao) values (1, 'Ativo')
